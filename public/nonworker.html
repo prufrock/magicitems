@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>None Worker</title>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/isprime.js"></script>
+</head>
+<body>
+
+Number (n): <input id="number" value="1125899839733759">
+
+<button id="check">Is n prime?</button><br/><br/>
+<button id="click-test">Try to click me!</button>
+
+<script>
+    var button = $("#check");
+    button.on("click", function() {
+        var input = $("#number");
+        var n = parseInt(input.val(), 10);
+        res = isPrime(n);
+
+        if (res) {
+            alert(n + " is a prime number");
+        } else {
+            alert(n + " is NOT a prime number");
+        }
+    });
+
+    var buttonHello = $("#click-test");
+    buttonHello.on("click", function() {
+        console.log("Hello!");
+    });
+</script>
+
+</body>
+</html>
