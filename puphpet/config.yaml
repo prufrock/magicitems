@@ -1,23 +1,29 @@
 vagrantfile:
     target: local
     vm:
-        box: puphpet/ubuntu1404-x64
-        box_url: puphpet/ubuntu1404-x64
-        hostname: magicitems
+        box: puphpet/debian75-x64
+        box_url: puphpet/debian75-x64
+        hostname: local.magicitems
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
         network:
             private_network: 192.168.56.102
             forwarded_port:
-                vflnp_p63t63xb18pc:
-                    host: '8279'
+                vflnp_p8si0k2bkfkd:
+                    host: '7435'
                     guest: '22'
+                vflnp_3apghs5ht4r5:
+                    host: '8772'
+                    guest: '7474'
+                vflnp_kkucv9s0w3jf:
+                    host: '7504'
+                    guest: '80'
         post_up_message: ''
         provider:
             virtualbox:
                 modifyvm:
-                    natdnshostresolver1: on
+                    natdnshostresolver1: 'on'
                 showgui: '0'
             vmware:
                 numvcpus: 1
@@ -33,9 +39,9 @@ vagrantfile:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            vflsf_wxho8c070jbr:
+            vflsf_035bz74519az:
                 source: ./
-                target: /var/www/magicitems
+                target: /var/www
                 sync_type: default
                 smb:
                     smb_host: ''
@@ -73,13 +79,26 @@ server:
         - vim
         - htop
         - tmux
+        - ngrep
+        - tcpdump
 users_groups:
     install: '1'
     groups: {  }
     users: {  }
+locale:
+    install: '1'
+    settings:
+        default_locale: ''
+        locales:
+            - en_GB.UTF-8
+            - en_US.UTF-8
 firewall:
     install: '1'
-    rules: {  }
+    rules:
+        fr_lvwa00z252dh:
+            priority: '100'
+            proto: tcp
+            action: accept
 cron:
     install: '1'
     jobs: {  }
@@ -91,7 +110,7 @@ nginx:
         proxy_buffers: '4 256k'
     upstreams: {  }
     vhosts:
-        nxv_v6gf522l7u3e:
+        nxv_9xxe6bbxvjny:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -111,9 +130,10 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_2irjaxtopjta:
+                nxvl_77gqgz6ez39w:
                     location: /
-                    autoindex: off
+                    autoindex: 'off'
+                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -121,9 +141,10 @@ nginx:
                     fastcgi: ''
                     fastcgi_index: ''
                     fastcgi_split_path: ''
-                nxvl_9o569cced7m3:
+                nxvl_55l8gixse783:
                     location: '~ \.php$'
-                    autoindex: off
+                    autoindex: 'off'
+                    internal: 'false'
                     try_files:
                         - $uri
                         - $uri/
@@ -136,7 +157,7 @@ nginx:
                         - 'APP_ENV dev'
     proxies: {  }
 apache:
-    install: '1'
+    install: '0'
     settings:
         user: www-data
         group: www-data
@@ -148,9 +169,11 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_5u4k3t76vkyo:
-            servername: magicitems.dev
-            docroot: /var/www/magicitems/public
+        av_h0532k1yjxc1:
+            servername: awesome.dev
+            serveraliases:
+                - www.awesome.dev
+            docroot: /var/www/awesome
             port: '80'
             setenv:
                 - 'APP_ENV dev'
@@ -163,8 +186,8 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_eu4zr9amqyii:
-                    path: /var/www/magicitems
+                avd_fdgpma82ik63:
+                    path: /var/www/awesome
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -175,7 +198,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_1e8lt8wll3dl:
+                        avdfm_leq4sv3dm0hj:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -191,17 +214,16 @@ php:
             - intl
             - mcrypt
         pear: {  }
-        pecl:
-            - pecl_http
+        pecl: {  }
     ini:
-        display_errors: On
+        display_errors: 'On'
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
         date.timezone: UTC
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_p9ay2p77vplv:
+        phpfp_8cm3kx1y5q30:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -249,7 +271,7 @@ python:
     packages: {  }
     versions: {  }
 nodejs:
-    install: '0'
+    install: '1'
     npm_packages: {  }
 hhvm:
     install: '0'
@@ -263,7 +285,7 @@ hhvm:
         hhvm.log.use_log_file: '1'
         hhvm.log.file: /var/log/hhvm/error.log
     php_ini:
-        display_errors: On
+        display_errors: 'On'
         error_reporting: '-1'
         date.timezone: UTC
 mysql:
@@ -274,15 +296,36 @@ mysql:
         override_options: {  }
     adminer: 0
     users:
-        mysqlnu_k3xpyc1rpxwh:
+        mysqlnu_ku5z3dh3ymzi:
             name: dbuser
             password: '123'
     databases:
-        mysqlnd_b1p1y50i0w2x:
+        mysqlnd_49ygpqy53oay:
             name: dbname
             sql: ''
     grants:
-        mysqlng_gk52we0nx6x4:
+        mysqlng_ckcabjto7g6n:
+            user: dbuser
+            table: '*.*'
+            privileges:
+                - ALL
+mariadb:
+    install: '0'
+    settings:
+        version: '10.0'
+        root_password: '123'
+        override_options: {  }
+    adminer: 0
+    users:
+        mariadbnu_pd0jrxctao7f:
+            name: dbuser
+            password: '123'
+    databases:
+        mariadbnd_r180u4tl09m8:
+            name: dbname
+            sql: ''
+    grants:
+        mariadbng_may09ndesisl:
             user: dbuser
             table: '*.*'
             privileges:
@@ -327,7 +370,7 @@ beanstalkd:
     install: '0'
     settings:
         listenaddress: 0.0.0.0
-        listenport: '13000'
+        listenport: '11300'
         maxjobsize: '65535'
         maxconnections: '1024'
         binlogdir: /var/lib/beanstalkd/binlog
