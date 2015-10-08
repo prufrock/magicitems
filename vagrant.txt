@@ -1,0 +1,42 @@
+Provider: VirtualBox
+Distro: Debian Wheezy 7 x64
+IP Address: 192.168.56.102
+Hostname: local.magicitems
+Memory: 512
+CPUs: 1
+Forwarded Ports
+Host Port: 7504 VM Port: 80
+Host Port: 7435 VM Port: 22
+Host Port: 8772 VM Port: 7474
+Shared Folders
+Folder Source: ./ Folder Target: /var/www
+Shared Folder Type: Default
+System Packages
+vim, htop, tmux, neo4j, ngrep, tcpdump
+Groups: -
+Users: -
+Locale
+Default Locale: -
+Supported Locales: en_GB.UTF-8, en_US.UTF-8
+Firewall Rule: -
+Cron jobs: -
+Custom Files: -
+nginx: -
+apache: -
+PHP: -
+Ruby: -
+Python: -
+Node.js: yes
+Install Npm packages: -
+MySQL: -
+MariaDB: -
+PostgreSQL: -
+MongoDB: -
+Redis: -
+SQLite: -
+MailCatcher: -
+Beanstalkd: -
+RabbitMQ: -
+Elastic Search: -
+Apache Solr: -
+

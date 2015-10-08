@@ -5,5 +5,7 @@ closet downstairs.
 I needed a site/concept for doing technology demonstrations and this is what I came up with.
 # Where is the stuff I need?
 You'll want to start by running `vagrant up`.
-Once all that is sorted you should be able to hit the neo4j databse at `http://127.0.0.1:8772/browser/`.
-There are some html files, javascript and other bits but they are not displayable since I removed the webserver. I'll get to that next. =D
+Once vagrant is up and running you can access the various pieces of the application through these URLS:
+* magicitems website: http://192.168.56.102/
+* magicitems API: http://192.168.56.102:8080
+* neo4j(database) admin: http://192.168.56.102:7474/browser/ 
